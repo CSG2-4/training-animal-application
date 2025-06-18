@@ -69,7 +69,7 @@ API0001(檻一覧取得API)
 登録されている檻の一覧を取得するAPI
 
 *URL*
-`/api/cage/list`
+```/api/cage/list```
 *Request*
 
 ```json
@@ -120,7 +120,7 @@ API1001(動物一覧取得API)
 *概要*
 登録されている動物の一覧を取得するAPI
 *URL*
-`/api/animal/list`
+```/api/animal/list```
 *Request*
 
 ```json
@@ -173,7 +173,7 @@ API3001(動物収容API)
 *概要*
 動物を檻に追加する。
 *URL*
-`/api/house/post`
+```/api/house/post```
 *Request*
 
 ```json
@@ -212,7 +212,7 @@ API0001(檻一覧取得API)
 *概要*
 登録されている檻の一覧を取得するAPI
 *URL*
-`/api/cage/list`
+```/api/cage/list```
 *Request*
 
 ```json
