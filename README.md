@@ -34,7 +34,14 @@ ERR,Error,ERROR
 
 #### 概要
 
-用意してある檻に動物を入れて管理するアプリを作成する。 檻にはそれぞれ、最大重量、最大動物収容数が設定されており、それぞれの最大値を超えて動物を檻に入れることはできない。
+用意してある檻に動物を入れて管理するアプリを作成する。 
+
+檻にはそれぞれ、最大重量、最大動物収容数が設定されており、それぞれの最大値を超えて動物を檻に入れることはできない。
+
+例外として最大重量の10%、最大収容数+1匹までであれば動物を収容することができるものとする。
+
+但し、最大重量と最大収容数がともに超えた場合は動物を収容することはできない。
+
 
 #### 檻の仕様
 
@@ -87,20 +94,20 @@ API0001(檻一覧取得API)
     {
       "cageId": "0001",
       "name": "普通の檻",
-      "limitWeight": 500,
-      "limitSize": 5
+      "limitWeight": "500Kg",
+      "limitSize": "5匹"
     },
     {
       "cageId": "0002",
       "name": "頑丈な檻",
-      "limitWeight": 9999,
-      "limitSize": 5
+      "limitWeight": "9999Kg",
+      "limitSize": "5匹"
     },
     {
       "cageId": "0003",
       "name": "広いな檻",
-      "limitWeight": 500,
-      "limitSize": 99
+      "limitWeight": "500Kg",
+      "limitSize": "99匹"
     }
   ]
 }
@@ -144,17 +151,17 @@ API1001(動物一覧取得API)
     {
       "animalId": "1001",
       "name": "うさぎ",
-      "weight": 5
+      "weight": "5Kg"
     },
     {
       "animalId": "1002",
       "name": "ライオン",
-      "weight": 150
+      "weight": "150Kg"
     },
     {
       "animalId": "1003",
       "name": "象",
-      "weight": 1000
+      "weight": "1000Kg"
     }
   ]
 }
@@ -207,11 +214,20 @@ API3001(動物収容API)
 }
 ```
 
+*Warn Response*
+
+```json
+{
+  "result": "WARN",
+  "message": "最大重量が10Kgオーバーしました。"
+}
+```
+
 *Error Response*
 
 ```json
 {
-  "result": "NG",
+  "result": "ERROR",
   "message": "最大収容数を超えています"
 }
 ```

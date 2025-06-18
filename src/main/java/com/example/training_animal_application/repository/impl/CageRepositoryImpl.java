@@ -1,6 +1,8 @@
 package com.example.training_animal_application.repository.impl;
 
 import com.example.training_animal_application.model.Cage;
+import com.example.training_animal_application.model.vo.Size;
+import com.example.training_animal_application.model.vo.Weight;
 import com.example.training_animal_application.repository.CageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -17,9 +19,9 @@ public class CageRepositoryImpl implements CageRepository {
 
     public CageRepositoryImpl() {
         store = new HashMap<>();
-        Cage c1 = new Cage("0001", "普通の檻", 500, 5);
-        Cage c2 = new Cage("0002", "頑丈な檻", 9999, 5);
-        Cage c3 = new Cage("0003", "広いな檻", 500, 99);
+        Cage c1 = new Cage("0001", "普通の檻", new Weight(500), new Size(5));
+        Cage c2 = new Cage("0002", "頑丈な檻", new Weight(9999),  new Size(5));
+        Cage c3 = new Cage("0003", "広いな檻", new Weight(500),  new Size(99));
         store.put(c1.getCageId(), c1);
         store.put(c2.getCageId(), c2);
         store.put(c3.getCageId(), c3);

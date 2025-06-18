@@ -6,6 +6,6 @@ import lombok.Data;
 public class CageDto {
     private String cageId;
     private String name;
-    private int limitWeight;
-    private int limitSize;
+    private String limitWeight;
+    private String limitSize;
 }

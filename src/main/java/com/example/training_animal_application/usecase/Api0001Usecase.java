@@ -28,8 +28,8 @@ public class Api0001Usecase {
         CageDto dto = new CageDto();
         dto.setCageId(cage.getCageId());
         dto.setName(cage.getName());
-        dto.setLimitWeight(cage.getLimitWeight());
-        dto.setLimitSize(cage.getLimitSize());
+        dto.setLimitWeight(cage.getLimitWeight().getWeight());
+        dto.setLimitSize(cage.getLimitSize().getSize());
         return dto;
     }
 }
