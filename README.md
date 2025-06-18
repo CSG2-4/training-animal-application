@@ -17,11 +17,11 @@ java21 インストール　mac
 intelliJのターミナルから以下コマンドで実行
  `./gradlew bootRun`
 
-:::note info
+```
 エラーが出て起動できない場合はログの中に
 ERR,Error,ERROR
 という文言があるので、そのあとに表示されるメッセージでgoogleで検索してみる。
-:::
+```
 
 `Tomcat initialized with port 8080 (http)`
 というmessageが表示されたら起動成功
