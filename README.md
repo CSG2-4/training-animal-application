@@ -5,12 +5,12 @@
 - IntelliJ IDEA Community Edition
 - java openjdk21
 
-:::note info
+```
 intelliJ インストール　windows
 intelliJ インストール　mac
 java21 インストール　windows
 java21 インストール　mac
-:::
+```
 
 
 ### アプリの起動方法
