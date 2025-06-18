@@ -104,7 +104,7 @@ API0001(檻一覧取得API)
     },
     {
       "cageId": "0003",
-      "name": "広いな檻",
+      "name": "広い檻",
       "limitWeight": "500Kg",
       "limitSize": "99匹"
     }
