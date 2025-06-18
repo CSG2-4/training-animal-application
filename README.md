@@ -69,7 +69,9 @@ API0001(檻一覧取得API)
 登録されている檻の一覧を取得するAPI
 
 *URL*
+
 ```/api/cage/list```
+
 *Request*
 
 ```json
@@ -78,7 +80,7 @@ API0001(檻一覧取得API)
 
 *Response*
 
-```
+```json
 {
   "cages": [
     {
@@ -116,11 +118,17 @@ curl -XPOST -H "Content-Type: application/json"  --data '{}' "http://localhost:8
 ##### API仕様
 
 *API名*
+
 API1001(動物一覧取得API)
+
 *概要*
+
 登録されている動物の一覧を取得するAPI
+
 *URL*
+
 ```/api/animal/list```
+
 *Request*
 
 ```json
@@ -129,24 +137,24 @@ API1001(動物一覧取得API)
 
 *Response*
 
-```
+```json
 {
   "animals": [
     {
       "animalId": "1001",
       "name": "うさぎ",
-      "weight": 5,
+      "weight": 5
     },
     {
       "animalId": "1002",
       "name": "ライオン",
-      "weight": 150,
+      "weight": 150
     },
     {
       "animalId": "1003",
       "name": "象",
-      "weight": 1000,
-    },
+      "weight": 1000
+    }
   ]
 }
 ```
@@ -169,11 +177,17 @@ github PR作成
 ##### API仕様
 
 *API名*
+
 API3001(動物収容API)
+
 *概要*
+
 動物を檻に追加する。
+
 *URL*
+
 ```/api/house/post```
+
 *Request*
 
 ```json
@@ -185,7 +199,7 @@ API3001(動物収容API)
 
 *200 Response*
 
-```
+```json
 {
   "result": "OK",
   "message": null
@@ -194,7 +208,7 @@ API3001(動物収容API)
 
 *Error Response*
 
-```
+```json
 {
   "result": "NG",
   "message": "最大収容数を超えています"
@@ -208,11 +222,17 @@ API3001(動物収容API)
 #### 課題4 動物一覧取得APIの修正
 
 *API名*
+
 API0001(檻一覧取得API)
+
 *概要*
+
 登録されている檻の一覧を取得するAPI
+
 *URL*
+
 ```/api/cage/list```
+
 *Request*
 
 ```json
@@ -221,7 +241,7 @@ API0001(檻一覧取得API)
 
 *Response*
 
-```
+```json
 {
   "cages": [
     {
@@ -233,12 +253,10 @@ API0001(檻一覧取得API)
       "totalSize":2,
       "animals": [
        {
-        "animalId": "1001",
-        "name": "うさぎ",
+        "name": "うさぎ"
        },
        {
-        "animalId": "1001",
-        "name": "うさぎ",
+        "name": "うさぎ"
        }
       ]
     },
