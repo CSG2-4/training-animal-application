@@ -34,14 +34,13 @@ ERR,Error,ERROR
 
 #### 概要
 
-用意してある檻に動物を入れて管理するアプリを作成する。 
+用意してある檻に動物を入れて管理するアプリを作成する。
 
 檻にはそれぞれ、最大重量、最大動物収容数が設定されており、それぞれの最大値を超えて動物を檻に入れることはできない。
 
 例外として最大重量の10%、最大収容数+1匹までであれば動物を収容することができるものとする。
 
 但し、最大重量と最大収容数がともに超えた場合は動物を収容することはできない。
-
 
 #### 檻の仕様
 
@@ -264,35 +263,35 @@ API0001(檻一覧取得API)
     {
       "cageId": "0001",
       "name": "普通の檻",
-      "limitWeight": 500,
-      "limitSize": 5,
-      "totalWeight":10,
-      "totalSize":2,
+      "limitWeight": "500Kg",
+      "limitSize": "5匹",
+      "totalWeight": "10Kg",
+      "totalSize": "2匹",
       "animals": [
-       {
-        "name": "うさぎ"
-       },
-       {
-        "name": "うさぎ"
-       }
+        {
+          "name": "うさぎ"
+        },
+        {
+          "name": "うさぎ"
+        }
       ]
     },
     {
       "cageId": "0002",
       "name": "頑丈な檻",
-      "limitWeight": 9999,
-      "limitSize": 5,
-      "totalWeight":0,
-      "totalSize":0,
+      "limitWeight": "9999Kg",
+      "limitSize": "5匹",
+      "totalWeight": "0Kg",
+      "totalSize": "0匹",
       "animals": []
     },
     {
       "cageId": "0003",
       "name": "広いな檻",
-      "limitWeight": 500,
-      "limitSize": 99,
-      "totalWeight":0,
-      "totalSize":0,
+      "limitWeight": "500Kg",
+      "limitSize": "99匹",
+      "totalWeight": "0Kg",
+      "totalSize": "0匹",
       "animals": []
     }
   ]
