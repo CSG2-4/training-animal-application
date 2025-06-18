@@ -66,6 +66,7 @@ ERR,Error,ERROR
 API0001(檻一覧取得API)
 
 *概要*
+
 登録されている檻の一覧を取得するAPI
 
 *URL*
