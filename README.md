@@ -9,295 +9,47 @@
 - IntelliJ IDEA Community Edition
 - java openjdk21
 
-```
-intelliJ インストール　windows
-intelliJ インストール　mac
-java21 インストール　windows
-java21 インストール　mac
-```
-
 ### アプリの起動方法
 
 intelliJのターミナルから以下コマンドで実行
-`./gradlew bootRun`
 
 ```
-エラーが出て起動できない場合はログの中に
-ERR,Error,ERROR
-という文言があるので、そのあとに表示されるメッセージでgoogleで検索してみる。
+./gradlew bootRun
 ```
 
-`Tomcat initialized with port 8080 (http)`
+```
+Tomcat initialized with port 8080 (http)
+```
+
 というmessageが表示されたら起動成功
+
+> [!TIP]
+> エラーが出て起動できない場合はログの中に
+> ERR,Error,ERROR
+> という文言があるので、そのあとに表示されるメッセージでgoogleで検索してみる。
+
+> [!TIP]
+> エラーの原因が特定できない場合は```./gradlew bootRun --stacktrace```を付けて実行してみる。
+> ログの中にStackTraceが表示されるので、StackTraceの中からエラーの原因になりそうなメッセージを探してみる。
+
+[Javaのエラー解決の王道～スタックトレースの読み方～](https://ittoybox.com/archives/588)
 
 ### アプリの要件
 
-#### 概要
-
-用意してある檻に動物を入れて管理するアプリを作成する。
-
-檻にはそれぞれ、最大重量、最大動物収容数が設定されており、それぞれの最大値を超えて動物を檻に入れることはできない。
-
-例外として、それぞれ最大重量の10%、最大収容数+1匹までであれば最大数を超えても動物を収容することができるものとする。
-
-但し、最大重量と最大収容数がともに超えた場合は動物を収容することはできない。
-
-#### 檻の仕様
-
-檻には3種類の檻が用意されている。
-
-- 普通の檻
-    - 最大重量:500kg
-    - 最大動物収容数:5匹
-- 頑丈な檻
-    - 最大重量:9999kg
-    - 最大動物収容数:5匹
-- 広い檻
-    - 最大重量:500kg
-    - 最大動物収容数:99匹
-
-#### 動物の仕様
-
-動物はそれぞれ名前、体重のステータスを持っている。
-
-### 課題
+[動物管理アプリ](https://github.com/CSG2-4/training-animal-application/blob/feature/documents/documents/assignment1.md)
 
 #### 課題1 APIを実行してみる
 
-すでにAPIを実装しているのでcurlを使ってAPIを実行してみる。
-
-##### API仕様
-
-*API名*
-API0001(檻一覧取得API)
-
-*概要*
-
-登録されている檻の一覧を取得するAPI
-
-*URL*
-
-```/api/cage/list```
-
-*Request*
-
-```json
-{}
-```
-
-*Response*
-
-```json
-{
-  "cages": [
-    {
-      "cageId": "0001",
-      "name": "普通の檻",
-      "limitWeight": "500Kg",
-      "limitSize": "5匹"
-    },
-    {
-      "cageId": "0002",
-      "name": "頑丈な檻",
-      "limitWeight": "9999Kg",
-      "limitSize": "5匹"
-    },
-    {
-      "cageId": "0003",
-      "name": "広い檻",
-      "limitWeight": "500Kg",
-      "limitSize": "99匹"
-    }
-  ]
-}
-```
-
-コマンドを実行してメッセージが返ってきたら成功
-
-```
-curl -XPOST -H "Content-Type: application/json"  --data '{}' "http://localhost:8080/api/cage/list"
-
-{"cages":[{"cageId":"0001","name":"普通の檻","limitWeight":500,"limitSize":5},{"cageId":"0002","name":"頑丈な檻","limitWeight":9999,"limitSize":5},{"cageId":"0003","name":"広いな檻","limitWeight":500,"limitSize":99}]}
-```
+[課題1](https://github.com/CSG2-4/training-animal-application/blob/feature/documents/documents/assignment2.md)
 
 #### 課題2 動物を取得するAPIを作成する
 
-##### API仕様
+[課題2](https://github.com/CSG2-4/training-animal-application/blob/feature/documents/documents/assignment3.md)
 
-*API名*
+#### 課題3 動物を檻に収容するAPIを作成する
 
-API1001(動物一覧取得API)
-
-*概要*
-
-登録されている動物の一覧を取得するAPI
-
-*URL*
-
-```/api/animal/list```
-
-*Request*
-
-```json
-{}
-```
-
-*Response*
-
-```json
-{
-  "animals": [
-    {
-      "animalId": "1001",
-      "name": "うさぎ",
-      "weight": "5Kg"
-    },
-    {
-      "animalId": "1002",
-      "name": "ライオン",
-      "weight": "150Kg"
-    },
-    {
-      "animalId": "1003",
-      "name": "象",
-      "weight": "1000Kg"
-    }
-  ]
-}
-```
-
-##### 進め方
-
-1. master-kugaブランチから新規にブランチを作成する。
-   ```git branch作成```
-2. 機能の実装を行う。 デフォルトでResponseの3匹の動物を追加しておく。
-3. commit,pushをして、PRを作成。
-
-```
-git commit
-git push 
-github PR作成
-```
-
-#### 課題3 動物を檻に追加するAPIを作成する
-
-##### API仕様
-
-*API名*
-
-API3001(動物収容API)
-
-*概要*
-
-動物を檻に追加する。
-
-*URL*
-
-```/api/house/post```
-
-*Request*
-
-```json
-{
-  "cageId": "0001",
-  "animalId": "1001"
-}
-```
-
-*200 Response*
-
-```json
-{
-  "result": "OK",
-  "message": null
-}
-```
-
-*Warn Response*
-
-```json
-{
-  "result": "WARN",
-  "message": "最大重量が10Kgオーバーしました。"
-}
-```
-
-*Error Response*
-
-```json
-{
-  "result": "ERROR",
-  "message": "最大収容数を超えています"
-}
-```
-
-##### 進め方
-
-課題2と同じ
+[課題3](https://github.com/CSG2-4/training-animal-application/blob/feature/documents/documents/assignment4.md)
 
 #### 課題4 動物一覧取得APIの修正
 
-*API名*
-
-API0001(檻一覧取得API)
-
-*概要*
-
-登録されている檻の一覧を取得するAPI
-
-*URL*
-
-```/api/cage/list```
-
-*Request*
-
-```json
-{}
-```
-
-*Response*
-
-```json
-{
-  "cages": [
-    {
-      "cageId": "0001",
-      "name": "普通の檻",
-      "limitWeight": "500Kg",
-      "limitSize": "5匹",
-      "totalWeight": "10Kg",
-      "totalSize": "2匹",
-      "animals": [
-        {
-          "name": "うさぎ"
-        },
-        {
-          "name": "うさぎ"
-        }
-      ]
-    },
-    {
-      "cageId": "0002",
-      "name": "頑丈な檻",
-      "limitWeight": "9999Kg",
-      "limitSize": "5匹",
-      "totalWeight": "0Kg",
-      "totalSize": "0匹",
-      "animals": []
-    },
-    {
-      "cageId": "0003",
-      "name": "広いな檻",
-      "limitWeight": "500Kg",
-      "limitSize": "99匹",
-      "totalWeight": "0Kg",
-      "totalSize": "0匹",
-      "animals": []
-    }
-  ]
-}
-```
-
-##### 進め方
-
-課題2と同じ
+[課題4](https://github.com/CSG2-4/training-animal-application/blob/feature/documents/documents/assignment5.md)
