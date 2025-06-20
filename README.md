@@ -50,6 +50,9 @@ Tomcat initialized with port 8080 (http)
 
 [課題3](https://github.com/CSG2-4/training-animal-application/blob/master/documents/assignment4.md)
 
+> [!IMPORTANT]
+> 課題4を実施時に修正範囲が少なくなるように考えて実装すること
+
 #### 課題4 動物一覧取得APIの修正
 
 [課題4](https://github.com/CSG2-4/training-animal-application/blob/master/documents/assignment5.md)
