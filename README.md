@@ -36,20 +36,23 @@ Tomcat initialized with port 8080 (http)
 
 ### アプリの要件
 
-[動物管理アプリ](https://github.com/CSG2-4/training-animal-application/blob/feature/documents/documents/assignment1.md)
+[動物管理アプリ](https://github.com/CSG2-4/training-animal-application/blob/master/documents/assignment1.md)
 
 #### 課題1 APIを実行してみる
 
-[課題1](https://github.com/CSG2-4/training-animal-application/blob/feature/documents/documents/assignment2.md)
+[課題1](https://github.com/CSG2-4/training-animal-application/blob/master/documents/assignment2.md)
 
 #### 課題2 動物を取得するAPIを作成する
 
-[課題2](https://github.com/CSG2-4/training-animal-application/blob/feature/documents/documents/assignment3.md)
+[課題2](https://github.com/CSG2-4/training-animal-application/blob/master/documents/assignment3.md)
 
 #### 課題3 動物を檻に収容するAPIを作成する
 
-[課題3](https://github.com/CSG2-4/training-animal-application/blob/feature/documents/documents/assignment4.md)
+[課題3](https://github.com/CSG2-4/training-animal-application/blob/master/documents/assignment4.md)
+
+> [!IMPORTANT]
+> 課題4を実施時に修正範囲が少なくなるように考えて実装すること
 
 #### 課題4 動物一覧取得APIの修正
 
-[課題4](https://github.com/CSG2-4/training-animal-application/blob/feature/documents/documents/assignment5.md)
+[課題4](https://github.com/CSG2-4/training-animal-application/blob/master/documents/assignment5.md)
