@@ -1,0 +1,3 @@
+takuya akaike@DESKTOP-NTA9TB3 MINGW64 ~
+$ curl -XPOST -H "Content-Type: application/json"  --data '{}' "http://localhost:8080/api/animal/list"
+{"animals":[{"animalId":"1001","name":"うさぎ","weight":"5Kg"},{"animalId":"1002","name":"ライオン","weight":"150Kg"},{"animalId":"1003","name":"象","weight":"1000Kg"}]}
