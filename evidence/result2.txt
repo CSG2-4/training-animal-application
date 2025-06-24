@@ -1,2 +1,1 @@
-curl.exe -XPOST -H "Content-Type: application/json" --data '{}' 　"http://localhost:8080/api/animal/list" -o result2.txt
-{"animals":[{"animalId":"1001","name":"うさぎ","weight":"5Kg"},{"animalId":"1002","name":"ライオン","weight":"150Kg"},{"animalId":"1003","name":"象","weight":"1000Kg"}]}
+{"animals":[{"animalId":"1001","name":"うさぎ","weight":"5Kg"},{"animalId":"1002","name":"ライオン","weight":"160Kg"},{"animalId":"1003","name":"象","weight":"1010Kg"}]}

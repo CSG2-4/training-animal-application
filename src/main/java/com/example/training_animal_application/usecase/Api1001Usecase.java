@@ -5,6 +5,7 @@ import com.example.training_animal_application.dto.Api1001RequestDto;
 import com.example.training_animal_application.dto.Api1001ResponseDto;
 import com.example.training_animal_application.dto.model.AnimalDto;
 import com.example.training_animal_application.model.Animal;
+import com.example.training_animal_application.model.vo.Weight;
 import com.example.training_animal_application.repository.AnimalRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -29,7 +30,13 @@ public class Api1001Usecase {
     AnimalDto dto = new AnimalDto();
     dto.setAnimalId(animal.getAnimalId());
     dto.setName(animal.getName());
-    dto.setWeight(animal.getWeight().getWeight());
+
+    int originalWeight = animal.getWeight().getValue();
+    Weight correctedWeight = Weight.animalWeight(originalWeight);
+
+    dto.setWeight(correctedWeight.getWeight());
+
+    System.out.println(dto.getWeight());
     return dto;
   }
 
