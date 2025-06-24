@@ -20,7 +20,10 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class Api3001Usecase {
-
+    // 最大重量の10%
+    private final double MAX_WEIGHT_RULE = 1.1;
+    // 最大収容数+1匹
+    private final int MAX_COUNT_RULE = 1;
     private final CageRepository cageRepository;
     private final AnimalRepository animalRepository;
     private final HouseRepository houseRepository;
@@ -54,10 +57,10 @@ public class Api3001Usecase {
 
             boolean overWeight = newTotalWeight > maxWeight;
             boolean overCount = newTotalCount > maxCount;
-            boolean withinWeightMargin = newTotalWeight <= maxWeight * 1.1;
-            boolean withinCountMargin = newTotalCount <= maxCount + 1;
+            boolean withinWeightMargin = newTotalWeight <= maxWeight * MAX_WEIGHT_RULE;
+            boolean withinCountMargin = newTotalCount <= maxCount + MAX_COUNT_RULE;
 
-            // 成功
+            // 収容成功
             if (!overWeight && !overCount) {
                 addAnimalToCage(cage, animal);
                 return createSuccessResponse();

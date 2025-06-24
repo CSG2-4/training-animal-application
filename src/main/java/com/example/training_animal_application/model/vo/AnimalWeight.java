@@ -1,8 +1,10 @@
 package com.example.training_animal_application.model.vo;
 
+import lombok.EqualsAndHashCode;
 import lombok.Value;
 
 @Value
+@EqualsAndHashCode(callSuper=false)
 public class AnimalWeight extends Weight {
 
     public int getAdjustedWeight() {

@@ -1,0 +1,12 @@
+takuya akaike@DESKTOP-NTA9TB3 MINGW64 ~
+$ curl -XPOST -H "Content-Type: application/json"  --data '{"cageId":"0001","animalId":"1003"}' "http://localhost:8080/api/house/post"
+{"result":"ERROR","message":"最大重量および最大収容数の両方を超えているため収容できません。"}
+takuya akaike@DESKTOP-NTA9TB3 MINGW64 ~
+$ curl -XPOST -H "Content-Type: application/json"  --data '{"cageId":"0001","animalId":"1002"}' "http://localhost:8080/api/house/post"
+{"result":"WARN","message":"最大収容数を1匹超えています。"}
+takuya akaike@DESKTOP-NTA9TB3 MINGW64 ~
+$ curl -XPOST -H "Content-Type: application/json"  --data '{"cageId":"0001","animalId":"1001"}' "http://localhost:8080/api/house/post"
+{"result":"ERROR","message":"収容条件を満たしていません。"}
+takuya akaike@DESKTOP-NTA9TB3 MINGW64 ~
+$ curl -XPOST -H "Content-Type: application/json"  --data '{"cageId":"0002","animalId":"1003"}' "http://localhost:8080/api/house/post"
+{"result":"OK","message":null}

@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 @RequiredArgsConstructor
@@ -30,7 +31,7 @@ public class HouseRepositoryImpl implements HouseRepository {
     @Override
     public void insert(House model) {
         HouseEntity e = new HouseEntity(model.getCageId(), model.getAnimalId());
-        houseStore.insert(model.getCageId(), e);
+        houseStore.insert(UUID.randomUUID().toString(), e);
     }
 
     private House toModel(HouseEntity entity) {
