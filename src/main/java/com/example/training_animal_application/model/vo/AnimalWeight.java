@@ -3,13 +3,7 @@ package com.example.training_animal_application.model.vo;
 import lombok.Value;
 
 @Value
-public class AnimalWeight {
-    private static final String UNIT = "Kg";
-    int value;
-
-    public String getWeight() {
-        return value + UNIT;
-    }
+public class AnimalWeight extends Weight {
 
     public int getAdjustedWeight() {
         if (value < 10) return value;

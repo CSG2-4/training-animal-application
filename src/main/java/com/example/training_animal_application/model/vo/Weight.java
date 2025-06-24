@@ -1,10 +1,10 @@
 package com.example.training_animal_application.model.vo;
 
-import lombok.Value;
+import lombok.Data;
 
-@Value
+@Data
 public class Weight {
-    private static final String UNIT = "Kg";
+    private static final String UNIT = "kg";
     int value;
 
     public String getWeight() {

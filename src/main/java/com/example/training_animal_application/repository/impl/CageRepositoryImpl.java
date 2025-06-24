@@ -23,11 +23,18 @@ public class CageRepositoryImpl implements CageRepository {
         return entities.stream().map(this::toModel).toList();
     }
 
+    public Cage find(String cageId) {
+        CageEntity entity = cageStore.findByKey(cageId);
+        return toModel(entity);
+    }
+
     private Cage toModel(CageEntity entity) {
         Cage model = new Cage();
         model.setCageId(entity.getCageId());
         model.setName(entity.getName());
-        model.setLimitWeight(new Weight(entity.getLimitWeight()));
+        Weight weight = new Weight();
+        weight.setValue(entity.getLimitWeight());
+        model.setLimitWeight(weight);
         model.setLimitSize(new Size(entity.getLimitSize()));
         return model;
     }
