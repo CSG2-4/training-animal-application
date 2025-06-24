@@ -1,1 +1,2 @@
-{"cages":[{"cageId":"0001","name":"普通の檻","limitWeight":"500Kg","limitSize":"5匹"},{"cageId":"0002","name":"頑丈な檻","limitWeight":"9999Kg","limitSize":"5匹"},{"cageId":"0003","name":"広い檻","limitWeight":"500Kg","limitSize":"99匹"}]}
+curl.exe -XPOST -H "Content-Type: application/json"  --data '{}' "http://localhost:8080/api/cage/list"
+{"cages":[{"cageId":"0001","name":"普通の檻","limitWeight":"500Kg","limitSize":"5匹"},{"cageId":"0002","name":"頑丈な檻","limitWeight":"9999Kg","limitSize":"5匹"},{"cageId":"0003","name":"広い檻","lim0Kg","limitSize":"99匹"}]}
