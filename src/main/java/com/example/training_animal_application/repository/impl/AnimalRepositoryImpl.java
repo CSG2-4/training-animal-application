@@ -2,6 +2,7 @@ package com.example.training_animal_application.repository.impl;
 
 import com.example.training_animal_application.entity.AnimalEntity;
 import com.example.training_animal_application.model.Animal;
+import com.example.training_animal_application.model.vo.AnimalWeight;
 import com.example.training_animal_application.model.vo.Weight;
 import com.example.training_animal_application.repository.AnimalRepository;
 import com.example.training_animal_application.store.AnimalStore;
@@ -26,7 +27,9 @@ public class AnimalRepositoryImpl implements AnimalRepository {
     Animal model = new Animal();
     model.setAnimalId(entity.getAnimalId());
     model.setName(entity.getName());
-    model.setWeight(new Weight(entity.getWeight()));
+
+    AnimalWeight animalWeight = new AnimalWeight(entity.getWeight());
+    model.setWeight(animalWeight);
     return model;
   }
 }
