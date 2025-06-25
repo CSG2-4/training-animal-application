@@ -29,5 +29,6 @@ $ curl -XPOST -H "Content-Type: application/json"  --data '{"cageId":"0001", "an
 {"result":"ERROR","message":"収容条件を満たしていません。"}
 
 // 異常系_両方超過
+takuya akaike@DESKTOP-NTA9TB3 MINGW64 /
 $ curl -XPOST -H "Content-Type: application/json"  --data '{"cageId":"0001", "animalId":"1001"}' "http://localhost:8080/api/house/post"
 {"result":"ERROR","message":"最大重量および最大収容数の両方を超えているため収容できません。"}

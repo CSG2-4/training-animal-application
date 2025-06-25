@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Weight {
-    private static final String UNIT = "kg";
+    private static final String UNIT = "Kg";
     int value;
 
     public String getWeight() {
