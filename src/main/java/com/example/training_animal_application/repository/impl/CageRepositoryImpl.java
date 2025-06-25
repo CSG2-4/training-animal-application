@@ -29,6 +29,9 @@ public class CageRepositoryImpl implements CageRepository {
     }
 
     private Cage toModel(CageEntity entity) {
+        if (entity == null) {
+            return null;
+        }
         Cage model = new Cage();
         model.setCageId(entity.getCageId());
         model.setName(entity.getName());

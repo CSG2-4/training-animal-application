@@ -28,6 +28,9 @@ public class AnimalRepositoryImpl implements AnimalRepository {
     }
 
     private Animal toModel(AnimalEntity entity) {
+        if (entity == null) {
+            return null;
+        }
         Animal model = new Animal();
         model.setAnimalId(entity.getAnimalId());
         model.setName(entity.getName());

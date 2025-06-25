@@ -11,7 +11,7 @@ public class AnimalStoreImpl extends StoreBase<AnimalEntity> implements AnimalSt
     @Override
     public void afterPropertiesSet() throws Exception {
         AnimalEntity a1 = new AnimalEntity("1001", "うさぎ", 5);
-        AnimalEntity a2 = new AnimalEntity("1002", "ライオン", 150);
+        AnimalEntity a2 = new AnimalEntity("1002", "ライオン", 500);
         AnimalEntity a3 = new AnimalEntity("1003", "象", 1000);
         insert(a1.getAnimalId(), a1);
         insert(a2.getAnimalId(), a2);

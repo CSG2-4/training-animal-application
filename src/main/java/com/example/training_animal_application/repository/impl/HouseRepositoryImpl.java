@@ -35,6 +35,9 @@ public class HouseRepositoryImpl implements HouseRepository {
     }
 
     private House toModel(HouseEntity entity) {
+        if (entity == null) {
+            return null;
+        }
         House model = new House();
         model.setCageId(entity.getCageId());
         model.setAnimalId(entity.getAnimalId());
