@@ -1,5 +1,6 @@
 package com.example.training_animal_application.model.vo;
 
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
 

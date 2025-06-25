@@ -1,0 +1,2 @@
+$ curl -XPOST -H "Content-Type: application/json"  --data '{}' "http://localhost:8080/api/cage/list"
+{"cages":[{"cageId":"0001","name":"普通の檻","limitWeight":"500kg","limitSize":"5匹","totalWeight":"170kg","totalSize":"3匹","animals":[{"name":"ライオン"},{"name":"うさぎ"},{"name":"うさぎ"}]},{"cageId":"0002","name":"頑丈な檻","limitWeight":"9999kg","limitSize":"5匹","totalWeight":"0kg","totalSize":"0匹","animals":[]},{"cageId":"0003","name":"広い檻","limitWeight":"500kg","limitSize":"99匹","totalWeight":"160kg","totalSize":"1匹","animals":[{"name":"ライオン"}]}]}
