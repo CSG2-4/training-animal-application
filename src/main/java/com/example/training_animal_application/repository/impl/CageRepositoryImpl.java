@@ -35,9 +35,7 @@ public class CageRepositoryImpl implements CageRepository {
         Cage model = new Cage();
         model.setCageId(entity.getCageId());
         model.setName(entity.getName());
-        Weight weight = new Weight();
-        weight.setValue(entity.getLimitWeight());
-        model.setLimitWeight(weight);
+        model.setLimitWeight(new Weight(entity.getLimitWeight()));
         model.setLimitSize(new Size(entity.getLimitSize()));
         return model;
     }

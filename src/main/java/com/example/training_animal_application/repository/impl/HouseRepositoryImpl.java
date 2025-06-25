@@ -23,7 +23,7 @@ public class HouseRepositoryImpl implements HouseRepository {
     }
 
     @Override
-    public List<House> selectByCageId(String cageId) {
+    public List<House> fetchBy(String cageId) {
         List<HouseEntity> entities = houseStore.findAll();
         return entities.stream().filter(e -> cageId.equals(e.getCageId())).map(this::toModel).toList();
     }

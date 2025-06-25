@@ -29,63 +29,35 @@ public class Api3001Usecase {
     private final HouseRepository houseRepository;
 
     public Api3001ResponseDto usecase(Api3001RequestDto request) {
+        if (!isValidRequestParam(request)) {
+            return createErrorResponse("リクエストパラメータが不正です。");
+        }
+
+        Cage cage = cageRepository.find(request.getCageId());
+        Animal animal = animalRepository.find(request.getAnimalId());
+
+        if (cage == null || animal == null) {
+            return createErrorResponse("檻または動物が存在しません。");
+        }
+
         try {
-            if (!isValidRequestParam(request)) {
-                log.info("バリデーションエラー: リクエストパラメータが不正です。");
-                return createErrorResponse("リクエストパラメータが不正です。");
-            }
-
-            // 対象の檻と動物を取得
-            Cage cage = cageRepository.find(request.getCageId());
-            Animal animal = animalRepository.find(request.getAnimalId());
-
-            if (cage == null || animal == null) {
-                return createErrorResponse("檻または動物が存在しません。");
-            }
-
-            // 現在収容されている動物,総重量,収容数を取得
             List<Animal> currentAnimals = getAnimalsInCage(cage.getCageId());
-            double totalWeight = getTotalWeight(currentAnimals);
-            int totalCount = currentAnimals.size();
 
-            double adjustedWeight = animal.getWeight().getAdjustedWeight();
-            double newTotalWeight = totalWeight + adjustedWeight;
-            int newTotalCount = totalCount + 1;
+            House.HousingResult result = House.evaluateHousing(
+                    cage, animal, currentAnimals, MAX_WEIGHT_RULE, MAX_COUNT_RULE
+            );
 
-            double maxWeight = cage.getLimitWeight().getValue();
-            int maxCount = cage.getLimitSize().getValue();
-
-            boolean overWeight = newTotalWeight > maxWeight;
-            boolean overCount = newTotalCount > maxCount;
-            boolean withinWeightMargin = newTotalWeight <= maxWeight * MAX_WEIGHT_RULE;
-            boolean withinCountMargin = newTotalCount <= maxCount + MAX_COUNT_RULE;
-
-            // 収容成功
-            if (!overWeight && !overCount) {
-                addAnimalToCage(cage, animal);
-                return createSuccessResponse();
-            }
-
-            // 両方超過 → エラー
-            if (overWeight && overCount) {
-                return createErrorResponse("最大重量および最大収容数の両方を超えているため収容できません。");
-            }
-
-            // 重量のみ許容範囲内での超過（+10%以内）
-            if (overWeight && withinWeightMargin && !overCount) {
-                addAnimalToCage(cage, animal);
-                double overBy = newTotalWeight - maxWeight;
-                return createWarnResponse(String.format("最大重量が%.1fKgオーバーしました。", overBy));
-            }
-
-            // 収容数のみ許容範囲内での超過（+1匹まで）
-            if (overCount && withinCountMargin && !overWeight) {
-                addAnimalToCage(cage, animal);
-                int overBy = newTotalCount - maxCount;
-                return createWarnResponse(String.format("最大収容数を%d匹超えています。", overBy));
-            }
-
-            return createErrorResponse("収容条件を満たしていません。");
+            return switch (result.result) {
+                case ACCEPTED -> {
+                    addAnimalToCage(cage, animal);
+                    yield createSuccessResponse();
+                }
+                case ACCEPTED_WITH_WARN -> {
+                    addAnimalToCage(cage, animal);
+                    yield createWarnResponse(result.message);
+                }
+                case REJECTED -> createErrorResponse(result.message);
+            };
 
         } catch (Exception e) {
             log.error("処理中に予期せぬエラーが発生しました。", e);
@@ -98,12 +70,8 @@ public class Api3001Usecase {
     }
 
     private List<Animal> getAnimalsInCage(String cageId) {
-        List<House> houses = houseRepository.selectByCageId(cageId);
+        List<House> houses = houseRepository.fetchBy(cageId);
         return houses.stream().map(house -> animalRepository.find(house.getAnimalId())).toList();
-    }
-
-    private double getTotalWeight(List<Animal> animals) {
-        return animals.stream().mapToDouble(a -> (double) a.getWeight().getAdjustedWeight()).sum();
     }
 
     private void addAnimalToCage(Cage cage, Animal animal) {

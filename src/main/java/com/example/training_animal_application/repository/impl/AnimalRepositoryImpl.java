@@ -34,9 +34,7 @@ public class AnimalRepositoryImpl implements AnimalRepository {
         Animal model = new Animal();
         model.setAnimalId(entity.getAnimalId());
         model.setName(entity.getName());
-        AnimalWeight animalWeight = new AnimalWeight();
-        animalWeight.setValue(entity.getWeight());
-        model.setWeight(animalWeight);
+        model.setWeight(new AnimalWeight(entity.getWeight()));
         return model;
     }
 }

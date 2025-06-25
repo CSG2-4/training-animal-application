@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface HouseRepository {
     List<House> fetch();
-    List<House> selectByCageId(String cageId);
+    List<House> fetchBy(String cageId);
     void insert(House model);
 }

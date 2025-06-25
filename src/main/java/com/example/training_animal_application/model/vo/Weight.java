@@ -1,13 +1,15 @@
 package com.example.training_animal_application.model.vo;
 
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 @Data
+@RequiredArgsConstructor
 public class Weight {
     private static final String UNIT = "Kg";
-    int value;
+    private final int value;
 
-    public String getWeight() {
+    public final String getWeight() {
         return value + UNIT;
     }
 }
