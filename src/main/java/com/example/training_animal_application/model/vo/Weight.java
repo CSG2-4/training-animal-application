@@ -1,13 +1,20 @@
 package com.example.training_animal_application.model.vo;
 
-import lombok.Value;
+import lombok.*;
 
-@Value
+@Getter
+@ToString
+@EqualsAndHashCode
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class Weight {
-    private static final String UNIT = "Kg";
+    protected static String UNIT = "Kg";
     int value;
 
     public String getWeight() {
         return value + UNIT;
+    }
+
+    public static Weight of(int value) {
+        return new Weight(value);
     }
 }

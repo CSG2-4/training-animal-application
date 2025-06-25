@@ -3,12 +3,10 @@ package com.example.training_animal_application.model.vo;
 import lombok.Getter;
 
 @Getter
-public class AnimalWeight {
-  private static final String UNIT = "Kg";
-  private final int correctedValue;
+public class AnimalWeight extends Weight {
 
-  public AnimalWeight (int originalWeight) {
-    this.correctedValue = calcCorrectedWeight(originalWeight);
+  public AnimalWeight(int originalWeight) {
+    super(calcCorrectedWeight(originalWeight));
   }
 
   private static int calcCorrectedWeight(int weight) {
@@ -21,9 +19,5 @@ public class AnimalWeight {
     } else {
       return weight;
     }
-  }
-
-  public String getFormattedWeight() {
-    return correctedValue + UNIT;
   }
 }

@@ -30,7 +30,7 @@ public class Api1001Usecase {
     AnimalDto dto = new AnimalDto();
     dto.setAnimalId(animal.getAnimalId());
     dto.setName(animal.getName());
-    dto.setWeight(animal.getWeight().getFormattedWeight());
+    dto.setWeight(animal.getWeight().getWeight());
     return dto;
   }
 
