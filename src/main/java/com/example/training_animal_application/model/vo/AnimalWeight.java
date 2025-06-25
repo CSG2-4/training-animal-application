@@ -1,15 +1,18 @@
 package com.example.training_animal_application.model.vo;
 
-import lombok.Getter;
+import lombok.Value;
 
-@Getter
-public class AnimalWeight extends Weight {
+@Value
+public class AnimalWeight {
 
-  public AnimalWeight(int originalWeight) {
-    super(calcCorrectedWeight(originalWeight));
+  private static final String UNIT = "Kg";
+  int value;
+
+  public String getWeight() {
+    return value + UNIT;
   }
 
-  private static int calcCorrectedWeight(int weight) {
+  public int calcCorrectedWeight(int weight) {
     if (weight >= 100) {
       return weight + 10;
     } else if (weight >= 50) {
