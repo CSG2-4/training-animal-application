@@ -28,14 +28,14 @@ public class Api0001Usecase {
 
     public Api0001ResponseDto usecase(Api0001RequestDto request) {
         List<Cage> cages = cageRepository.fetch();
-        List<CageDto> cageDtos = mapCagesToDtos(cages);
+        List<CageDto> cageDtos = cagesToDtos(cages);
 
         Api0001ResponseDto response = new Api0001ResponseDto();
         response.setCages(cageDtos);
         return response;
     }
 
-    private List<CageDto> mapCagesToDtos(List<Cage> cages) {
+    private List<CageDto> cagesToDtos(List<Cage> cages) {
         List<CageDto> dtos = new ArrayList<>();
         cages.forEach(
                 cage -> {
