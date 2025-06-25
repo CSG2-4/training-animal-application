@@ -9,7 +9,6 @@ import com.example.training_animal_application.model.Cage;
 import com.example.training_animal_application.model.House;
 import com.example.training_animal_application.model.vo.AnimalWeight;
 import com.example.training_animal_application.model.vo.Size;
-import com.example.training_animal_application.model.vo.Weight;
 import com.example.training_animal_application.repository.AnimalRepository;
 import com.example.training_animal_application.repository.CageRepository;
 import com.example.training_animal_application.repository.HouseRepository;
@@ -27,52 +26,40 @@ public class Api0001Usecase {
     private final HouseRepository houseRepository;
     private final AnimalRepository animalRepository;
 
-
     public Api0001ResponseDto usecase(Api0001RequestDto request) {
-        List<CageDto> dtos = new ArrayList<>();
         List<Cage> cages = cageRepository.fetch();
+        List<CageDto> cageDtos = mapCagesToDtos(cages);
 
-        cages.forEach(
-                cage -> {
-                    List<Animal> animals = getAnimalsInCage(cage.getCageId());
-                    AnimalWeight totalWeight = createAnimalWeight((int)getTotalWeight(animals));
-                    Size totalSize = new Size(animals.size());
-                    List<AnimalNameDto> animalNameDtos = new ArrayList<>();
-                    animals.forEach(
-                            animal -> animalNameDtos.add(toAnimalNameDto(animal.getName()))
-                    );
-                    dtos.add(
-                            toDto(cage, totalWeight, totalSize, animalNameDtos)
-                    );
-                }
-        );
         Api0001ResponseDto response = new Api0001ResponseDto();
-        response.setCages(dtos);
+        response.setCages(cageDtos);
         return response;
     }
 
-    private CageDto toDto(Cage cage, AnimalWeight totalWeight, Size totalSize, List<AnimalNameDto> animals) {
-        CageDto dto = new CageDto();
-        dto.setCageId(cage.getCageId());
-        dto.setName(cage.getName());
-        dto.setLimitWeight(cage.getLimitWeight().getWeight());
-        dto.setLimitSize(cage.getLimitSize().getSize());
-        dto.setTotalWeight(totalWeight.getWeight());
-        dto.setTotalSize(totalSize.getSize());
-        dto.setAnimals(animals);
-        return dto;
+    private List<CageDto> mapCagesToDtos(List<Cage> cages) {
+        List<CageDto> dtos = new ArrayList<>();
+        cages.forEach(
+                cage -> {
+                    List<Animal> animals = getAnimalsInCage(cage.getCageId());
+                    CageDto dto = buildCageDto(cage, animals);
+                    dtos.add(dto);
+                }
+        );
+        return dtos;
     }
 
-    private AnimalNameDto toAnimalNameDto(String name) {
-        AnimalNameDto dto = new AnimalNameDto();
-        dto.setName(name);
-        return dto;
-    }
+    private CageDto buildCageDto(Cage cage, List<Animal> animals) {
+        AnimalWeight totalWeight = new AnimalWeight();
+        totalWeight.setValue((int) getTotalWeight(animals));
 
-    private AnimalWeight createAnimalWeight(int weight) {
-        AnimalWeight vo = new AnimalWeight();
-        vo.setValue(weight);
-        return vo;
+        Size totalSize = new Size(animals.size());
+        List<AnimalNameDto> animalNameDtos = animals.stream().map(
+                animal -> {
+                    AnimalNameDto dto = new AnimalNameDto();
+                    dto.setName(animal.getName());
+                    return dto;
+                }).toList();
+
+        return toCageDto(cage, totalWeight, totalSize, animalNameDtos);
     }
 
     private List<Animal> getAnimalsInCage(String cageId) {
@@ -84,5 +71,15 @@ public class Api0001Usecase {
         return animals.stream().mapToDouble(a -> (double) a.getWeight().getAdjustedWeight()).sum();
     }
 
-
+    private CageDto toCageDto(Cage cage, AnimalWeight totalWeight, Size totalSize, List<AnimalNameDto> animals) {
+        CageDto dto = new CageDto();
+        dto.setCageId(cage.getCageId());
+        dto.setName(cage.getName());
+        dto.setLimitWeight(cage.getLimitWeight().getWeight());
+        dto.setLimitSize(cage.getLimitSize().getSize());
+        dto.setTotalWeight(totalWeight.getWeight());
+        dto.setTotalSize(totalSize.getSize());
+        dto.setAnimals(animals);
+        return dto;
+    }
 }
