@@ -31,4 +31,5 @@ public class CageRepositoryImpl implements CageRepository {
         model.setLimitSize(new Size(entity.getLimitSize()));
         return model;
     }
+
 }
