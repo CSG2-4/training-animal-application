@@ -6,9 +6,9 @@ import java.util.List;
 
 @Data
 public class House {
-    // 最大重量の10%
+    // 例外ルール(最大重量)：最大重量の10%
     private static final double MAX_WEIGHT_RULE = 1.1;
-    // 最大収容数+1匹
+    // 例外ルール(最大収容数)：最大収容数+1匹
     private static final int MAX_COUNT_RULE = 1;
     private String cageId;
     private String animalId;
