@@ -3,9 +3,7 @@ package com.example.training_animal_application.usecase;
 import com.example.training_animal_application.dto.Api3001RequestDto;
 import com.example.training_animal_application.dto.Api3001ResponseDto;
 import com.example.training_animal_application.dto.constant.ResponseStatus;
-import com.example.training_animal_application.model.Animal;
-import com.example.training_animal_application.model.Cage;
-import com.example.training_animal_application.model.House;
+import com.example.training_animal_application.model.*;
 import com.example.training_animal_application.repository.AnimalRepository;
 import com.example.training_animal_application.repository.CageRepository;
 import com.example.training_animal_application.repository.HouseRepository;
@@ -14,16 +12,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class Api3001Usecase {
-    // 最大重量の10%
-    private final double MAX_WEIGHT_RULE = 1.1;
-    // 最大収容数+1匹
-    private final int MAX_COUNT_RULE = 1;
     private final CageRepository cageRepository;
     private final AnimalRepository animalRepository;
     private final HouseRepository houseRepository;
@@ -41,24 +33,19 @@ public class Api3001Usecase {
         }
 
         try {
-            List<Animal> currentAnimals = getAnimalsInCage(cage.getCageId());
+            HousePolicy policy = new PostHousePolicy();
+            House house = new House(cage, animal, policy);
+            houseRepository.insert(house);
 
-            House.HousingResult result = House.evaluateHousing(
-                    cage, animal, currentAnimals
-            );
-
-            return switch (result.result) {
-                case ACCEPTED -> {
-                    addAnimalToCage(cage, animal);
-                    yield createSuccessResponse();
-                }
-                case ACCEPTED_WITH_WARN -> {
-                    addAnimalToCage(cage, animal);
-                    yield createWarnResponse(result.message);
-                }
-                case REJECTED -> createErrorResponse(result.message);
+            return switch (house.getResult().result) {
+                case ACCEPTED -> createSuccessResponse();
+                case ACCEPTED_WITH_WARN -> createWarnResponse(house.getResult().message);
+                // REJECTEDはここに到達しないが、明示的に処理を記載
+                case REJECTED -> createErrorResponse("処理中にエラーが発生しました。");
             };
 
+        } catch (IllegalArgumentException e) {
+            return createErrorResponse(e.getMessage());
         } catch (Exception e) {
             log.error("処理中に予期せぬエラーが発生しました。", e);
             return createErrorResponse("処理中にエラーが発生しました。");
@@ -67,18 +54,6 @@ public class Api3001Usecase {
 
     private boolean isValidRequestParam(Api3001RequestDto request) {
         return StringUtils.isNotBlank(request.getAnimalId()) && StringUtils.isNotBlank(request.getCageId());
-    }
-
-    private List<Animal> getAnimalsInCage(String cageId) {
-        List<House> houses = houseRepository.fetchBy(cageId);
-        return houses.stream().map(house -> animalRepository.find(house.getAnimalId())).toList();
-    }
-
-    private void addAnimalToCage(Cage cage, Animal animal) {
-        House house = new House();
-        house.setCageId(cage.getCageId());
-        house.setAnimalId(animal.getAnimalId());
-        houseRepository.insert(house);
     }
 
     private Api3001ResponseDto createSuccessResponse() {
