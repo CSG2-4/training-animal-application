@@ -44,7 +44,7 @@ public class Api3001Usecase {
             List<Animal> currentAnimals = getAnimalsInCage(cage.getCageId());
 
             House.HousingResult result = House.evaluateHousing(
-                    cage, animal, currentAnimals, MAX_WEIGHT_RULE, MAX_COUNT_RULE
+                    cage, animal, currentAnimals
             );
 
             return switch (result.result) {

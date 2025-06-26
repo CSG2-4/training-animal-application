@@ -6,6 +6,10 @@ import java.util.List;
 
 @Data
 public class House {
+    // 最大重量の10%
+    private static final double MAX_WEIGHT_RULE = 1.1;
+    // 最大収容数+1匹
+    private static final int MAX_COUNT_RULE = 1;
     private String cageId;
     private String animalId;
 
@@ -28,9 +32,7 @@ public class House {
     public static HousingResult evaluateHousing(
             Cage cage,
             Animal animal,
-            List<Animal> currentAnimals,
-            double maxWeightRule,
-            int maxCountRule
+            List<Animal> currentAnimals
     ) {
         double totalWeight = currentAnimals.stream().mapToDouble(a -> a.getWeight().getAdjustedWeight()).sum();
 
@@ -45,8 +47,8 @@ public class House {
 
         boolean overWeight = newTotalWeight > maxWeight;
         boolean overCount = newTotalCount > maxCount;
-        boolean withinWeightMargin = newTotalWeight <= maxWeight * maxWeightRule;
-        boolean withinCountMargin = newTotalCount <= maxCount + maxCountRule;
+        boolean withinWeightMargin = newTotalWeight <= maxWeight * MAX_WEIGHT_RULE;
+        boolean withinCountMargin = newTotalCount <= maxCount + MAX_COUNT_RULE;
 
         if (!overWeight && !overCount) {
             return new HousingResult(HousingResultType.ACCEPTED, null);
