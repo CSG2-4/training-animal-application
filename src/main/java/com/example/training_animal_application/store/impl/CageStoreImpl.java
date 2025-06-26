@@ -20,7 +20,7 @@ public class CageStoreImpl extends StoreBase<CageEntity> implements CageStore, I
 
     @Override
     public CageEntity findByKey(String k) {
-        // todo:課題3
-        return null;
+        // todo:DONE 課題3
+        return get(k);
     }
 }

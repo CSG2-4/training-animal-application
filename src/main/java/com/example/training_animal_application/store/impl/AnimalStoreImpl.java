@@ -21,6 +21,6 @@ public class AnimalStoreImpl extends StoreBase<AnimalEntity> implements AnimalSt
 
   @Override
   public AnimalEntity findByKey(String k) {
-    return null;
+    return get(k);
   }
 }
