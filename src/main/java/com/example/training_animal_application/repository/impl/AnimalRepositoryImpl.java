@@ -22,7 +22,15 @@ public class AnimalRepositoryImpl implements AnimalRepository {
         return entities.stream().map(this::toModel).toList();
     }
 
+    public Animal find(String animalId) {
+        AnimalEntity entity = animalStore.findByKey(animalId);
+        return toModel(entity);
+    }
+
     private Animal toModel(AnimalEntity entity) {
+        if (entity == null) {
+            return null;
+        }
         Animal model = new Animal();
         model.setAnimalId(entity.getAnimalId());
         model.setName(entity.getName());

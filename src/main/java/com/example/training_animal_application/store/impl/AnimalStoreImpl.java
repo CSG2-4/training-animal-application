@@ -1,9 +1,7 @@
 package com.example.training_animal_application.store.impl;
 
 import com.example.training_animal_application.entity.AnimalEntity;
-import com.example.training_animal_application.entity.CageEntity;
 import com.example.training_animal_application.store.AnimalStore;
-import com.example.training_animal_application.store.CageStore;
 import com.example.training_animal_application.store.StoreBase;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
@@ -22,6 +20,6 @@ public class AnimalStoreImpl extends StoreBase<AnimalEntity> implements AnimalSt
 
     @Override
     public AnimalEntity findByKey(String k) {
-        return null;
+        return get(k);
     }
 }

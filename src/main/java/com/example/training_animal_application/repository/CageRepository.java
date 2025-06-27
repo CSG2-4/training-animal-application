@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface CageRepository {
     List<Cage> fetch();
+    Cage find(String cageId);
 }
