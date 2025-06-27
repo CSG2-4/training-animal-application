@@ -2,6 +2,8 @@ package com.example.training_animal_application.usecase;
 
 import com.example.training_animal_application.dto.Api3001RequestDto;
 import com.example.training_animal_application.dto.Api3001ResponseDto;
+import com.example.training_animal_application.model.Animal;
+import com.example.training_animal_application.model.Cage;
 import com.example.training_animal_application.repository.AnimalRepository;
 import com.example.training_animal_application.repository.CageRepository;
 import com.example.training_animal_application.repository.HouseRepository;
@@ -16,7 +18,20 @@ public class Api3001Usecase {
   private final AnimalRepository animalRepository;
   private final HouseRepository houseRepository;
 
-  // 檻に収容するための比較をおこなう
   public Api3001ResponseDto usecase(Api3001RequestDto request) {
+
+    // リクエスト(紙に書かれた各ID)を取得
+    String cageId = request.getCageId();
+    String animalId = request.getAnimalId();
+
+    // 檻と動物の状態を取得
+    Cage cage = cageRepository.findById(cageId);
+    Animal animal = animalRepository.findById(animalId);
+
+    // 檻に格納
+    cage.addAnimal(animal);
+
+    return null;
   }
+
 }
