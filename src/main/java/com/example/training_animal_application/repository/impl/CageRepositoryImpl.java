@@ -30,41 +30,29 @@ public class CageRepositoryImpl implements CageRepository {
     @Override
     public List<Cage> fetch() {
         List<CageEntity> entities = cageStore.findAll();
-        return entities.stream().map(this::toCageModel).toList();
+        return entities.stream()
+                .map(entity -> toCageModel(entity, getCurrentAnimalEntities(entity.getCageId())))
+                .toList();
     }
 
     public Cage find(String cageId) {
         CageEntity cageEntity = cageStore.findByKey(cageId);
+        List<AnimalEntity> currentAnimalEntities = getCurrentAnimalEntities(cageId);
+        return toCageModel(cageEntity, currentAnimalEntities);
+    }
+
+    private List<AnimalEntity> getCurrentAnimalEntities(String cageId) {
         List<HouseEntity> houseEntities = houseStore.findAll();
         List<AnimalEntity> animalEntities = animalStore.findAll();
 
-        List<HouseEntity> targetHouseEntities = houseEntities.stream()
+        return houseEntities.stream()
                 .filter(h -> cageId.equals(h.getCageId()))
-                .toList();
-
-        List<AnimalEntity> currentAnimalEntities = targetHouseEntities.stream()
                 .map(houseEntity -> animalEntities.stream()
                         .filter(a -> a.getAnimalId().equals(houseEntity.getAnimalId()))
                         .findFirst()
                         .orElse(null))
                 .filter(Objects::nonNull)
                 .toList();
-
-        return toCageModel(cageEntity, currentAnimalEntities);
-    }
-
-    private Cage toCageModel(CageEntity entity) {
-        if (entity == null) {
-            return null;
-        }
-        Cage model = new Cage();
-        model.setCageId(entity.getCageId());
-        model.setName(entity.getName());
-        model.setLimitWeight(new Weight(entity.getLimitWeight()));
-        model.setLimitSize(new Size(entity.getLimitSize()));
-        // 存在しない場合は空のリストをセット
-        model.setAnimals(Collections.emptyList());
-        return model;
     }
 
     private Cage toCageModel(CageEntity cageEntity, List<AnimalEntity> animalEntities) {
