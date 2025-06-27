@@ -1,10 +1,13 @@
 package com.example.training_animal_application.repository.impl;
 
+import com.example.training_animal_application.entity.AnimalEntity;
 import com.example.training_animal_application.entity.CageEntity;
+import com.example.training_animal_application.model.Animal;
 import com.example.training_animal_application.model.Cage;
 import com.example.training_animal_application.model.vo.Size;
 import com.example.training_animal_application.model.vo.Weight;
 import com.example.training_animal_application.repository.CageRepository;
+import com.example.training_animal_application.store.AnimalStore;
 import com.example.training_animal_application.store.CageStore;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -21,6 +24,12 @@ public class CageRepositoryImpl implements CageRepository {
     public List<Cage> fetch() {
         List<CageEntity> entities = cageStore.findAll();
         return entities.stream().map(this::toModel).toList();
+    }
+
+    @Override
+    public Cage findById(String cageId) {
+        CageEntity entity = cageStore.findByKey(cageId);
+        return toModel(entity);
     }
 
     private Cage toModel(CageEntity entity) {

@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface AnimalRepository {
   List<Animal> fetch();
+  Animal findById(String animalId);
 }
