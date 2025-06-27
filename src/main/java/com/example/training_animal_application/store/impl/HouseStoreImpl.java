@@ -10,11 +10,7 @@ import org.springframework.stereotype.Component;
 public class HouseStoreImpl extends StoreBase<HouseEntity> implements HouseStore, InitializingBean {
   @Override
   public void afterPropertiesSet() throws Exception {
-    HouseEntity h1 = new HouseEntity("OK", null);
-    HouseEntity h2 = new HouseEntity("WARN", "最大重量が" +  + "オーバーしました。");
-    HouseEntity h3 = new HouseEntity("ERROR", "最大収容数を超えています");
-    insert(h1,get(), h1);
-    insert(h2,get(), h2);
-    insert(h3,get(), h3);
+    HouseEntity h1 = new HouseEntity("0001", "1001");
+    insert(h1,getCageId(), h1);
   }
 }

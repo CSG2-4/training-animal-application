@@ -21,6 +21,12 @@ public class HouseRepositoryImpl implements HouseRepository {
     return entities.stream().map(this::toModel).toList();
   }
 
+  @Override
+  public void insert(House model) {
+    HouseEntity entity = new HouseEntity(model.getCageId(), model.getAnimalId());
+    houseStore.insert(model.getCageId(), entity);
+  }
+
   private House toModel(HouseEntity entity) {
     House model = new House();
     model.setCageId(entity.getCageId());

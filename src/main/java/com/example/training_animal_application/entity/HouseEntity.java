@@ -7,6 +7,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class HouseEntity {
   private String cageId;
-  private String AnimalId;
+  private String animalId;
 
 }

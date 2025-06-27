@@ -4,6 +4,7 @@ import com.example.training_animal_application.dto.Api3001RequestDto;
 import com.example.training_animal_application.dto.Api3001ResponseDto;
 import com.example.training_animal_application.model.Animal;
 import com.example.training_animal_application.model.Cage;
+import com.example.training_animal_application.model.House;
 import com.example.training_animal_application.repository.AnimalRepository;
 import com.example.training_animal_application.repository.CageRepository;
 import com.example.training_animal_application.repository.HouseRepository;
@@ -28,8 +29,12 @@ public class Api3001Usecase {
     Cage cage = cageRepository.findById(cageId);
     Animal animal = animalRepository.findById(animalId);
 
-    // 檻に格納
-    cage.addAnimal(animal);
+    // Houseモデルに値を詰める
+    House h = new House();
+    h.setCageId(cage);
+    h.setAnimalId(animal);
+
+    houseRepository.insert(h);
 
     return null;
   }

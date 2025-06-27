@@ -14,7 +14,7 @@ public class HouseController {
   private final Api3001Usecase api3001Usecase;
 
   @PostMapping("api/house/post")
-  public Api3001ResponseDto list(@RequestBody Api3001RequestDto request){
+  public Api3001ResponseDto post(@RequestBody Api3001RequestDto request){
     return api3001Usecase.usecase(request);
   }
 }

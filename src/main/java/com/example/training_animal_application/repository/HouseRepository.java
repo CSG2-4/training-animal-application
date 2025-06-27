@@ -5,4 +5,5 @@ import java.util.List;
 
 public interface HouseRepository {
   List<House> fetch();
+  void insert(House house);
 }
