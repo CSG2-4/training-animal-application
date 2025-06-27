@@ -4,6 +4,7 @@ import com.example.training_animal_application.model.vo.Size;
 import com.example.training_animal_application.model.vo.Weight;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -12,5 +13,5 @@ public class Cage {
     private String name;
     private Weight limitWeight;
     private Size limitSize;
-    private List<Animal> animals;
+    private List<Animal> animals = new ArrayList<>();
 }
