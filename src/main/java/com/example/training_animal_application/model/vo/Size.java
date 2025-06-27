@@ -10,4 +10,8 @@ public class Size {
     public String getSize() {
         return value + UNIT;
     }
+
+    public boolean equals(Size s){
+        return s.getValue() == value;
+    }
 }
