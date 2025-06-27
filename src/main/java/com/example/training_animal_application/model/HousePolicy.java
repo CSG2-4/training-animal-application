@@ -9,7 +9,6 @@ public interface HousePolicy {
         REJECTED
     }
 
-    // public + static にすることで、外部からアクセス可能に
     public static class ExecuteResult {
         public final ExecuteResultType result;
         public final String message;
