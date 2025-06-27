@@ -37,11 +37,11 @@ public class Api3001Usecase {
             House house = new House(cage, animal, policy);
             houseRepository.insert(house);
 
-            return switch (house.getResult().result) {
+            HousePolicy.ExecuteResult result = house.getResult();
+            return switch (result.result) {
                 case ACCEPTED -> createSuccessResponse();
-                case ACCEPTED_WITH_WARN -> createWarnResponse(house.getResult().message);
-                // REJECTEDはここに到達しないが、明示的に処理を記載
-                case REJECTED -> createErrorResponse("処理中にエラーが発生しました。");
+                case ACCEPTED_WITH_WARN -> createWarnResponse(result.message);
+                case REJECTED -> createErrorResponse("処理中にエラーが発生しました。"); // 念のため記述
             };
 
         } catch (IllegalArgumentException e) {

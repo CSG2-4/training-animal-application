@@ -8,7 +8,7 @@ public class PostHousePolicy implements HousePolicy {
     private static final int MAX_COUNT_RULE = 1;
 
     @Override
-    public House.executeResult execute(Cage cage, Animal animal) {
+    public ExecuteResult execute(Cage cage, Animal animal) {
         double totalWeight = cage.getAnimals().stream().mapToDouble(a -> a.getWeight().getAdjustedWeight()).sum();
         int totalCount = cage.getAnimals().size();
 
@@ -25,26 +25,26 @@ public class PostHousePolicy implements HousePolicy {
         boolean withinCountMargin = newTotalCount <= maxCount + MAX_COUNT_RULE;
 
         if (!overWeight && !overCount) {
-            return new House.executeResult(House.executeResultType.ACCEPTED, null);
+            return new ExecuteResult(ExecuteResultType.ACCEPTED, null);
         }
 
         if (overWeight && overCount) {
-            return new House.executeResult(House.executeResultType.REJECTED,
+            return new ExecuteResult(ExecuteResultType.REJECTED,
                     "最大重量および最大収容数の両方を超えているため収容できません。");
         }
 
         if (overWeight && withinWeightMargin && !overCount) {
             double overBy = newTotalWeight - maxWeight;
-            return new House.executeResult(House.executeResultType.ACCEPTED_WITH_WARN,
+            return new ExecuteResult(ExecuteResultType.ACCEPTED_WITH_WARN,
                     String.format("最大重量が%.1fKgオーバーしました。", overBy));
         }
 
         if (overCount && withinCountMargin && !overWeight) {
             int overBy = newTotalCount - maxCount;
-            return new House.executeResult(House.executeResultType.ACCEPTED_WITH_WARN,
+            return new ExecuteResult(ExecuteResultType.ACCEPTED_WITH_WARN,
                     String.format("最大収容数を%d匹超えています。", overBy));
         }
 
-        return new House.executeResult(House.executeResultType.REJECTED, "収容条件を満たしていません。");
+        return new ExecuteResult(ExecuteResultType.REJECTED, "収容条件を満たしていません。");
     }
 }
